@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" style="background: transparent !important;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dopa - radio script</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      background: transparent !important;
+      background-color: transparent !important;
+    }
+
+    * {
+      -webkit-user-drag: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+  </style>
+</head>
+<body style="background: transparent !important;" ondragstart="return false;" ondrop="return false;">
+  <div id="users-list-overlay" class="users-list-overlay hidden"></div>
+
+  <div id="radio-container" class="radio-container hidden">
+    <div class="radio-panel">
+      <div class="glass-reflection"></div>
+
+      <div class="radio-header">
+        <button class="header-btn hidden" id="back-btn" onclick="Radio.goBack()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+
+        <div class="radio-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 6V2m0 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/>
+            <path d="M6.34 6.34l-2.83-2.83m17 0l-2.83 2.83M4 12H2m20 0h-2"/>
+            <path d="M12 14v8M8 18h8"/>
+          </svg>
+        </div>
+
+        <div class="header-copy">
+          <span class="header-kicker" id="header-kicker">Comunicaciones</span>
+          <h2 class="radio-title" id="header-title">dopa - radio script</h2>
+        </div>
+
+        <div class="header-actions">
+          <button class="header-btn" id="members-btn" onclick="Radio.showMembers()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </button>
+          <button class="header-btn" id="settings-btn" onclick="Radio.showSettings()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </button>
+          <button class="header-btn" onclick="Radio.close()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="screen-shell">
+        <div class="screen-track" id="screen-track">
+          <section class="radio-screen">
+            <div class="main-screen">
+              <div class="channel-display">
+                <div class="channel-status disconnected" id="channel-status">
+                  <span class="status-dot"></span>
+                  <span class="status-text" id="status-text">Desconectado</span>
+                </div>
+                <div class="channel-number" id="channel-number">001</div>
+                <div class="channel-name" id="channel-name">Sin frecuencia</div>
+              </div>
+
+              <div class="channel-controls">
+                <button class="channel-btn" onclick="Radio.changeChannel(-1)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6"/>
+                  </svg>
+                </button>
+                <input type="text" class="channel-input" id="channel-input" placeholder="001" maxlength="3" onkeypress="Radio.handleChannelInput(event)">
+                <button class="channel-btn" onclick="Radio.changeChannel(1)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6"/>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="volume-section">
+                <div class="volume-header">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                  </svg>
+                  <span>Volumen</span>
+                  <span class="volume-value" id="volume-value">75%</span>
+                </div>
+                <div class="volume-slider-wrapper">
+                  <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="75" oninput="Radio.setVolume(this.value)">
+                  <div class="volume-track">
+                    <div class="volume-fill" id="volume-fill" style="width: 75%;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="quick-channels">
+                <div class="section-label">Multi frecuencia</div>
+                <div class="quick-list" id="quick-list"></div>
+                <div class="quick-hint">Empiezas sin frecuencias guardadas. Los slots 1 y 2 son libres, y los slots 3 y 4 quedan reservados para acceso VIP.</div>
+              </div>
+
+              <div class="channel-shortcut-note">
+                <span>Elige una frecuencia arriba y luego guardala en un slot vacio. Los espacios VIP quedan visibles como premium.</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="radio-screen screen-page">
+            <div class="page-section">
+              <div class="page-hero">
+                <div class="page-hero-copy">
+                  <span class="page-eyebrow">Canal activo</span>
+                  <h3 class="page-title">Usuarios</h3>
+                  <p class="page-subtitle">Vista viva de la frecuencia y quienes estan hablando ahora.</p>
+                </div>
+                <div class="page-frequency" id="users-frequency">001</div>
+              </div>
+
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <span class="stat-label">Conectados</span>
+                  <span class="stat-value" id="users-count">0</span>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-label">Hablando</span>
+                  <span class="stat-value" id="users-talking-count">0</span>
+                </div>
+              </div>
+
+              <div class="section-label">Tu presencia</div>
+              <div class="self-card" id="users-self-card"></div>
+
+              <div class="section-label">Equipo en canal</div>
+              <div class="member-card-list" id="members-panel-list"></div>
+            </div>
+          </section>
+
+          <section class="radio-screen screen-page">
+            <div class="page-section">
+              <div class="page-hero">
+                <div class="page-hero-copy">
+                  <span class="page-eyebrow">Perfil publico</span>
+                  <h3 class="page-title">Configuracion</h3>
+                  <p class="page-subtitle">Define como quieres aparecer para todos en la frecuencia.</p>
+                </div>
+              </div>
+
+              <div class="profile-preview" id="profile-preview-card"></div>
+
+              <div class="settings-note">Los cambios se guardan al instante y los ve toda la frecuencia.</div>
+
+              <div class="setting-block">
+                <div class="setting-block-header">
+                  <span class="setting-block-title">Modo jefe visible</span>
+                  <button class="toggle-chip" id="badge-toggle-btn" type="button"></button>
+                </div>
+                <p class="setting-block-copy">Activa o desactiva tu insignia publica dentro del canal.</p>
+              </div>
+
+              <div class="setting-block">
+                <label class="setting-block-title" for="role-label-input">Etiqueta publica</label>
+                <input class="settings-input" id="role-label-input" type="text" maxlength="14" placeholder="Jefe">
+                <p class="setting-block-copy">Texto corto que ira junto a tu icono para que todos lo vean.</p>
+              </div>
+
+              <div class="setting-block">
+                <label class="setting-block-title" for="callsign-input">Callsign</label>
+                <input class="settings-input" id="callsign-input" type="text" maxlength="18" placeholder="Alpha-1">
+                <p class="setting-block-copy">Apodo operativo visible para el resto del canal.</p>
+              </div>
+
+              <div class="setting-block">
+                <span class="setting-block-title">Animacion de radio</span>
+                <p class="setting-block-copy">Elige como quieres sostener la radio cuando hablas. Esta opcion solo te afecta a ti.</p>
+                <div class="animation-grid" id="animation-grid"></div>
+              </div>
+
+              <div class="setting-block">
+                <span class="setting-block-title">Icono del jefe</span>
+                <div class="icon-grid" id="icon-grid"></div>
+              </div>
+
+              <div class="setting-block">
+                <span class="setting-block-title">Color visible</span>
+                <div class="color-grid" id="color-grid"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="radio-footer">
+          <button class="footer-btn" id="mute-btn" onclick="Radio.toggleMute()">
+            <svg id="mute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            </svg>
+            <span id="mute-text">Silenciar</span>
+          </button>
+          <button class="footer-btn danger" id="connection-btn" onclick="Radio.handleConnectionAction()">
+            <svg id="connection-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M18.36 6.64a9 9 0 1 1-12.73 0"/>
+              <line x1="12" y1="2" x2="12" y2="12"/>
+            </svg>
+            <span id="connection-text">Desconectar</span>
+          </button>
+        </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
