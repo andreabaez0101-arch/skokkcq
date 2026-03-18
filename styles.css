@@ -150,44 +150,99 @@ input {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 316px;
-  height: 536px;
+  width: 320px;
+  height: 545px;
   transform: translate(-50%, -50%);
-  background: linear-gradient(160deg, #28282c 0%, #1c1c20 40%, #16161a 100%);
-  border-radius: 22px;
+  background: 
+    linear-gradient(180deg, 
+      rgba(60, 60, 65, 0.4) 0%, 
+      rgba(30, 30, 34, 0.2) 3%,
+      transparent 6%
+    ),
+    linear-gradient(160deg, 
+      #2d2d32 0%, 
+      #232328 15%,
+      #1e1e22 40%, 
+      #18181c 70%,
+      #141418 100%
+    );
+  border-radius: 18px;
+  border: 1px solid rgba(80, 80, 90, 0.15);
   box-shadow: 
-    inset 0 1px 1px rgba(255, 255, 255, 0.08),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.4),
-    0 15px 40px rgba(0, 0, 0, 0.7),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+    inset 2px 0 4px rgba(0, 0, 0, 0.15),
+    inset -2px 0 4px rgba(0, 0, 0, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 2px 8px rgba(0, 0, 0, 0.3);
   pointer-events: none;
   z-index: -1;
 }
 
-/* Antenna */
+/* Antenna base mount */
 .radio-container::after {
   content: '';
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 10px;
-  height: 80px;
-  margin-top: -308px;
-  margin-left: -100px;
-  background: linear-gradient(90deg, 
-    #1a1a1e 0%, 
-    #35353a 20%, 
-    #404046 50%, 
-    #35353a 80%, 
-    #1a1a1e 100%
+  width: 18px;
+  height: 12px;
+  margin-top: -267px;
+  margin-left: -105px;
+  background: linear-gradient(180deg, 
+    #3a3a40 0%, 
+    #28282d 50%,
+    #1e1e22 100%
   );
-  border-radius: 5px 5px 3px 3px;
+  border-radius: 3px 3px 0 0;
   box-shadow: 
-    inset 0 -20px 20px rgba(0, 0, 0, 0.25),
-    1px 2px 6px rgba(0, 0, 0, 0.4);
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    0 -1px 2px rgba(0, 0, 0, 0.3);
   pointer-events: none;
-  z-index: -1;
+  z-index: 1;
+}
+
+/* Antenna */
+.walkie-antenna {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 90px;
+  margin-top: -318px;
+  margin-left: -105px;
+  background: linear-gradient(90deg, 
+    #1c1c20 0%, 
+    #38383e 15%,
+    #4a4a52 35%,
+    #52525a 50%, 
+    #4a4a52 65%,
+    #38383e 85%,
+    #1c1c20 100%
+  );
+  border-radius: 5px 5px 2px 2px;
+  box-shadow: 
+    inset 0 -25px 25px rgba(0, 0, 0, 0.2),
+    inset 0 2px 2px rgba(255, 255, 255, 0.1),
+    2px 3px 8px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Antenna segments */
+.walkie-antenna::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 
+    0 20px 0 rgba(0, 0, 0, 0.25),
+    0 40px 0 rgba(0, 0, 0, 0.2);
 }
 
 /* Antenna tip */
@@ -196,85 +251,179 @@ input {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 7px;
-  height: 14px;
-  margin-top: -355px;
-  margin-left: -100px;
-  background: linear-gradient(90deg, #25252a 0%, #404046 50%, #25252a 100%);
-  border-radius: 3px 3px 2px 2px;
+  width: 6px;
+  height: 18px;
+  margin-top: -372px;
+  margin-left: -105px;
+  background: linear-gradient(90deg, 
+    #2a2a30 0%, 
+    #48484f 50%, 
+    #2a2a30 100%
+  );
+  border-radius: 3px 3px 1px 1px;
+  box-shadow: 
+    inset 0 2px 2px rgba(255, 255, 255, 0.15),
+    1px 1px 3px rgba(0, 0, 0, 0.3);
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
 }
 
-/* Speaker grille area - hidden, not needed */
+/* Speaker grille area */
 .walkie-speaker {
-  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 50px;
+  margin-top: -215px;
+  background: #0c0c0e;
+  border-radius: 6px;
+  box-shadow: 
+    inset 0 2px 6px rgba(0, 0, 0, 0.8),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
 }
 
-/* Side buttons left */
+.walkie-speaker::before {
+  content: '';
+  position: absolute;
+  inset: 6px 10px;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 2px,
+      #161618 2px,
+      #161618 4px
+    );
+  border-radius: 3px;
+  opacity: 0.8;
+}
+
+/* Side buttons left - PTT style */
 .walkie-btn-left-1,
 .walkie-btn-left-2 {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 5px;
-  height: 35px;
-  margin-left: -163px;
-  background: linear-gradient(90deg, #1a1a1e 0%, #2d2d32 50%, #1a1a1e 100%);
-  border-radius: 2px 0 0 2px;
+  width: 8px;
+  height: 50px;
+  margin-left: -168px;
+  background: linear-gradient(90deg, 
+    #18181c 0%, 
+    #2a2a30 30%,
+    #35353b 50%, 
+    #2a2a30 70%,
+    #18181c 100%
+  );
+  border-radius: 4px 0 0 4px;
   box-shadow: 
-    inset 1px 0 1px rgba(255, 255, 255, 0.08),
-    -1px 0 3px rgba(0, 0, 0, 0.4);
+    inset 1px 0 2px rgba(255, 255, 255, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+    -2px 0 4px rgba(0, 0, 0, 0.3);
   pointer-events: none;
-  z-index: -1;
+  z-index: 1;
 }
 
 .walkie-btn-left-1 {
-  margin-top: -100px;
+  margin-top: -80px;
+  height: 60px;
+}
+
+.walkie-btn-left-1::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 30px;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.4) 3px,
+    rgba(0, 0, 0, 0.4) 5px
+  );
+  border-radius: 1px;
 }
 
 .walkie-btn-left-2 {
-  margin-top: -40px;
+  margin-top: 10px;
+  height: 40px;
 }
 
-/* Side buttons right */
+/* Side button right - Volume/Channel */
 .walkie-btn-right {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 5px;
-  height: 45px;
-  margin-left: 163px;
-  margin-top: -70px;
-  background: linear-gradient(90deg, #1a1a1e 0%, #2d2d32 50%, #1a1a1e 100%);
-  border-radius: 0 2px 2px 0;
+  width: 8px;
+  height: 55px;
+  margin-left: 168px;
+  margin-top: -60px;
+  background: linear-gradient(90deg, 
+    #18181c 0%, 
+    #2a2a30 30%,
+    #35353b 50%, 
+    #2a2a30 70%,
+    #18181c 100%
+  );
+  border-radius: 0 4px 4px 0;
   box-shadow: 
-    inset -1px 0 1px rgba(255, 255, 255, 0.08),
-    1px 0 3px rgba(0, 0, 0, 0.4);
+    inset -1px 0 2px rgba(255, 255, 255, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.3),
+    2px 0 4px rgba(0, 0, 0, 0.3);
   pointer-events: none;
-  z-index: -1;
+  z-index: 1;
 }
 
-/* Knob/dial at top */
+.walkie-btn-right::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 2px;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 25px;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.4) 3px,
+    rgba(0, 0, 0, 0.4) 5px
+  );
+  border-radius: 1px;
+}
+
+/* Knob/dial at top - Power/Volume */
 .walkie-knob {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
   margin-top: -245px;
-  margin-left: 100px;
-  background: linear-gradient(145deg, #35353a 0%, #1c1c20 100%);
+  margin-left: 105px;
+  background: 
+    radial-gradient(circle at 30% 30%, #45454d 0%, #35353b 30%, #25252a 70%, #1a1a1e 100%);
   border-radius: 50%;
+  border: 1px solid rgba(60, 60, 70, 0.3);
   box-shadow: 
-    inset 0 1px 2px rgba(255, 255, 255, 0.1),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.3),
-    0 2px 4px rgba(0, 0, 0, 0.4);
+    inset 0 2px 3px rgba(255, 255, 255, 0.12),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+    0 3px 8px rgba(0, 0, 0, 0.5),
+    0 1px 2px rgba(0, 0, 0, 0.3);
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
 .walkie-knob::before {
@@ -283,28 +432,59 @@ input {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 16px;
-  height: 16px;
-  background: linear-gradient(145deg, #28282c 0%, #1a1a1e 100%);
+  width: 20px;
+  height: 20px;
+  background: 
+    radial-gradient(circle at 40% 40%, #38383e 0%, #28282d 50%, #1c1c20 100%);
   border-radius: 50%;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.1),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .walkie-knob::after {
   content: '';
   position: absolute;
-  top: 4px;
+  top: 5px;
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
-  height: 5px;
-  background: #454550;
+  height: 7px;
+  background: linear-gradient(180deg, #5a5a65 0%, #3a3a42 100%);
   border-radius: 1px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
 }
 
-/* Bottom texture area - hidden */
+/* Bottom texture/grip area */
 .walkie-grip {
-  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 60px;
+  margin-top: 220px;
+  background: linear-gradient(180deg, #141418 0%, #101014 100%);
+  border-radius: 0 0 14px 14px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.walkie-grip::before {
+  content: '';
+  position: absolute;
+  inset: 8px 20px;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      rgba(30, 30, 35, 0.8) 0px,
+      rgba(30, 30, 35, 0.8) 3px,
+      rgba(20, 20, 24, 0.8) 3px,
+      rgba(20, 20, 24, 0.8) 6px
+    );
+  border-radius: 4px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* LED indicator */
@@ -313,26 +493,43 @@ input {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   margin-top: -245px;
-  margin-left: -100px;
-  background: #10b981;
+  margin-left: -105px;
+  background: radial-gradient(circle at 40% 40%, #34d399 0%, #10b981 60%, #059669 100%);
   border-radius: 50%;
+  border: 1px solid rgba(16, 185, 129, 0.3);
   box-shadow: 
-    0 0 6px #10b981,
-    0 0 12px rgba(16, 185, 129, 0.4);
-  animation: ledBlink 2s infinite;
+    0 0 4px #10b981,
+    0 0 10px rgba(16, 185, 129, 0.6),
+    0 0 20px rgba(16, 185, 129, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  animation: ledPulse 2s ease-in-out infinite;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
-@keyframes ledBlink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+@keyframes ledPulse {
+  0%, 100% { 
+    opacity: 1;
+    box-shadow: 
+      0 0 4px #10b981,
+      0 0 10px rgba(16, 185, 129, 0.6),
+      0 0 20px rgba(16, 185, 129, 0.3),
+      inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  }
+  50% { 
+    opacity: 0.7;
+    box-shadow: 
+      0 0 2px #10b981,
+      0 0 6px rgba(16, 185, 129, 0.4),
+      0 0 12px rgba(16, 185, 129, 0.2),
+      inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  }
 }
 
-/* Screws decoration */
+/* Screws decoration - hex style */
 .walkie-screw-tl,
 .walkie-screw-tr,
 .walkie-screw-bl,
@@ -341,13 +538,18 @@ input {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 6px;
-  height: 6px;
-  background: linear-gradient(145deg, #35353a 0%, #1c1c20 100%);
+  width: 8px;
+  height: 8px;
+  background: 
+    radial-gradient(circle at 35% 35%, #42424a 0%, #2a2a30 50%, #1c1c20 100%);
   border-radius: 50%;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(50, 50, 58, 0.5);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.3);
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
 .walkie-screw-tl::before,
@@ -358,16 +560,74 @@ input {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(45deg);
+  transform: translate(-50%, -50%);
   width: 4px;
-  height: 1px;
-  background: #454550;
+  height: 4px;
+  background: radial-gradient(circle, #1a1a1e 0%, #28282d 100%);
+  border-radius: 50%;
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5);
 }
 
-.walkie-screw-tl { margin-top: -255px; margin-left: -140px; }
-.walkie-screw-tr { margin-top: -255px; margin-left: 140px; }
-.walkie-screw-bl { margin-top: 255px; margin-left: -140px; }
-.walkie-screw-br { margin-top: 255px; margin-left: 140px; }
+.walkie-screw-tl::after,
+.walkie-screw-tr::after,
+.walkie-screw-bl::after,
+.walkie-screw-br::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(30deg);
+  width: 3px;
+  height: 1px;
+  background: #3a3a42;
+  box-shadow: 
+    0 0 0 0 transparent,
+    1.5px 0.87px 0 0 #3a3a42,
+    -1.5px 0.87px 0 0 #3a3a42;
+}
+
+.walkie-screw-tl { margin-top: -255px; margin-left: -142px; }
+.walkie-screw-tr { margin-top: -255px; margin-left: 142px; }
+.walkie-screw-bl { margin-top: 255px; margin-left: -142px; }
+.walkie-screw-br { margin-top: 255px; margin-left: 142px; }
+
+/* Top edge highlight */
+.walkie-edge-top {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 3px;
+  margin-top: -260px;
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    rgba(70, 70, 80, 0.3) 20%,
+    rgba(90, 90, 100, 0.4) 50%,
+    rgba(70, 70, 80, 0.3) 80%,
+    transparent 100%
+  );
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Brand label area */
+.walkie-brand {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 180px;
+  font-family: 'Arial', sans-serif;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: rgba(80, 80, 90, 0.5);
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 1;
+}
 
 .radio-panel {
   position: relative;
