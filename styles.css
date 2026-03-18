@@ -140,22 +140,288 @@ input {
   right: 2rem;
   transform: translateY(-50%);
   z-index: 9999;
-  --radio-shell-offset-x: -10px;
-  --radio-shell-offset-y: 30px;
+  --radio-shell-offset-x: 0px;
+  --radio-shell-offset-y: 0px;
 }
 
+/* Walkie Talkie Frame - CSS Only */
 .radio-container::before {
   content: '';
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 520px;
-  aspect-ratio: 784 / 1349;
+  width: 340px;
+  height: 620px;
   transform: translate(-50%, -50%);
-  background: url('./dopa_assets/radio_shell.png') center / contain no-repeat;
+  background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #0d0d0d 100%);
+  border-radius: 24px 24px 20px 20px;
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.1),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+    0 20px 60px rgba(0, 0, 0, 0.8),
+    0 0 0 3px #1a1a1a,
+    0 0 0 5px #333;
   pointer-events: none;
   z-index: -1;
 }
+
+/* Antenna */
+.radio-container::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 120px;
+  margin-top: -370px;
+  margin-left: -120px;
+  background: linear-gradient(90deg, 
+    #1a1a1a 0%, 
+    #3d3d3d 20%, 
+    #4a4a4a 50%, 
+    #3d3d3d 80%, 
+    #1a1a1a 100%
+  );
+  border-radius: 7px 7px 4px 4px;
+  box-shadow: 
+    inset 0 -30px 30px rgba(0, 0, 0, 0.3),
+    2px 2px 8px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Antenna tip */
+.walkie-antenna-tip {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 20px;
+  margin-top: -440px;
+  margin-left: -120px;
+  background: linear-gradient(90deg, #2a2a2a 0%, #4a4a4a 50%, #2a2a2a 100%);
+  border-radius: 5px 5px 2px 2px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Speaker grille area */
+.walkie-speaker {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 80px;
+  margin-top: -230px;
+  background: #0a0a0a;
+  border-radius: 8px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.walkie-speaker::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 3px,
+      #1a1a1a 3px,
+      #1a1a1a 6px
+    );
+  border-radius: 4px;
+}
+
+/* Side buttons left */
+.walkie-btn-left-1,
+.walkie-btn-left-2 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 45px;
+  margin-left: -178px;
+  background: linear-gradient(90deg, #1a1a1a 0%, #333 50%, #1a1a1a 100%);
+  border-radius: 2px 0 0 2px;
+  box-shadow: 
+    inset 1px 0 2px rgba(255, 255, 255, 0.1),
+    -2px 0 4px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.walkie-btn-left-1 {
+  margin-top: -150px;
+}
+
+.walkie-btn-left-2 {
+  margin-top: -80px;
+}
+
+/* Side buttons right */
+.walkie-btn-right {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 60px;
+  margin-left: 178px;
+  margin-top: -120px;
+  background: linear-gradient(90deg, #1a1a1a 0%, #333 50%, #1a1a1a 100%);
+  border-radius: 0 2px 2px 0;
+  box-shadow: 
+    inset -1px 0 2px rgba(255, 255, 255, 0.1),
+    2px 0 4px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Knob/dial at top */
+.walkie-knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  margin-top: -270px;
+  margin-left: 120px;
+  background: linear-gradient(145deg, #3d3d3d 0%, #1a1a1a 100%);
+  border-radius: 50%;
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.15),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.walkie-knob::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+  border-radius: 50%;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.1);
+}
+
+.walkie-knob::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 8px;
+  background: #555;
+  border-radius: 2px;
+}
+
+/* Bottom texture area */
+.walkie-grip {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 100px;
+  margin-top: 230px;
+  background: #151515;
+  border-radius: 0 0 16px 16px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.walkie-grip::before {
+  content: '';
+  position: absolute;
+  inset: 10px 20px;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      #1a1a1a 0px,
+      #1a1a1a 4px,
+      #222 4px,
+      #222 8px
+    );
+  border-radius: 4px;
+}
+
+/* LED indicator */
+.walkie-led {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  margin-top: -270px;
+  margin-left: -120px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 
+    0 0 8px #10b981,
+    0 0 16px rgba(16, 185, 129, 0.5);
+  animation: ledBlink 2s infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes ledBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Screws decoration */
+.walkie-screw-tl,
+.walkie-screw-tr,
+.walkie-screw-bl,
+.walkie-screw-br {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(145deg, #3a3a3a 0%, #1a1a1a 100%);
+  border-radius: 50%;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.walkie-screw-tl::before,
+.walkie-screw-tr::before,
+.walkie-screw-bl::before,
+.walkie-screw-br::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 6px;
+  height: 1px;
+  background: #555;
+}
+
+.walkie-screw-tl { margin-top: -280px; margin-left: -150px; }
+.walkie-screw-tr { margin-top: -280px; margin-left: 150px; }
+.walkie-screw-bl { margin-top: 280px; margin-left: -150px; }
+.walkie-screw-br { margin-top: 280px; margin-left: 150px; }
 
 .radio-panel {
   position: relative;
