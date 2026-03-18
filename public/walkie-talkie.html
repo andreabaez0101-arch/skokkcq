@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Walkie Talkie</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .walkie-talkie {
+      position: relative;
+      width: 200px;
+      height: 420px;
+      background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #0d0d0d 100%);
+      border-radius: 20px 20px 30px 30px;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.8),
+        inset 0 2px 3px rgba(255, 255, 255, 0.1),
+        inset 0 -2px 3px rgba(0, 0, 0, 0.5);
+      padding: 15px;
+    }
+
+    /* Antena */
+    .antenna {
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 90px;
+      background: linear-gradient(90deg, #4a4a4a 0%, #6a6a6a 30%, #3a3a3a 70%, #2a2a2a 100%);
+      border-radius: 6px 6px 3px 3px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .antenna::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 8px;
+      background: linear-gradient(145deg, #5a5a5a, #3a3a3a);
+      border-radius: 50%;
+    }
+
+    .antenna::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 10px;
+      background: linear-gradient(180deg, #3a3a3a, #2a2a2a);
+      border-radius: 3px;
+    }
+
+    /* Altavoz */
+    .speaker {
+      width: 100%;
+      height: 80px;
+      background: #0a0a0a;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+      gap: 4px;
+      padding: 8px;
+      box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .speaker-hole {
+      width: 100%;
+      height: 100%;
+      background: #1a1a1a;
+      border-radius: 50%;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Pantalla LCD */
+    .screen {
+      width: 100%;
+      height: 70px;
+      background: linear-gradient(180deg, #1a3a1a 0%, #0d2a0d 100%);
+      border-radius: 8px;
+      margin-bottom: 15px;
+      padding: 10px;
+      box-shadow: 
+        inset 0 2px 10px rgba(0, 0, 0, 0.8),
+        0 1px 0 rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .screen-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .signal-bars {
+      display: flex;
+      gap: 2px;
+      align-items: flex-end;
+    }
+
+    .signal-bar {
+      width: 4px;
+      background: #00ff00;
+      box-shadow: 0 0 5px #00ff00;
+    }
+
+    .signal-bar:nth-child(1) { height: 4px; }
+    .signal-bar:nth-child(2) { height: 7px; }
+    .signal-bar:nth-child(3) { height: 10px; }
+    .signal-bar:nth-child(4) { height: 13px; }
+
+    .battery {
+      width: 20px;
+      height: 10px;
+      border: 1px solid #00ff00;
+      border-radius: 2px;
+      position: relative;
+      box-shadow: 0 0 5px #00ff00;
+    }
+
+    .battery::before {
+      content: '';
+      position: absolute;
+      right: -4px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 5px;
+      background: #00ff00;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .battery::after {
+      content: '';
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      width: 12px;
+      height: 4px;
+      background: #00ff00;
+      box-shadow: 0 0 3px #00ff00;
+    }
+
+    .channel-display {
+      text-align: center;
+    }
+
+    .channel-label {
+      font-size: 8px;
+      color: #00aa00;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .channel-number {
+      font-size: 28px;
+      font-weight: bold;
+      color: #00ff00;
+      text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Controles */
+    .controls {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 15px;
+    }
+
+    .knob-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .knob-label {
+      font-size: 8px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .knob {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(145deg, #3a3a3a 0%, #1a1a1a 100%);
+      border-radius: 50%;
+      box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.5),
+        inset 0 2px 3px rgba(255, 255, 255, 0.1);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .knob::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 12px;
+      background: #ff6600;
+      border-radius: 2px;
+      box-shadow: 0 0 5px #ff6600;
+    }
+
+    .knob::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 15px;
+      height: 15px;
+      background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+      border-radius: 50%;
+    }
+
+    /* LED indicador */
+    .led-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .led {
+      width: 10px;
+      height: 10px;
+      background: #00ff00;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+      animation: blink 2s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Boton PTT */
+    .ptt-button {
+      width: 100%;
+      height: 80px;
+      background: linear-gradient(180deg, #ff4400 0%, #cc3300 50%, #aa2200 100%);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      box-shadow: 
+        0 6px 0 #881100,
+        0 10px 20px rgba(0, 0, 0, 0.5),
+        inset 0 2px 3px rgba(255, 255, 255, 0.2);
+      transition: all 0.1s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .ptt-button:hover {
+      background: linear-gradient(180deg, #ff5500 0%, #dd4400 50%, #bb3300 100%);
+    }
+
+    .ptt-button:active {
+      transform: translateY(4px);
+      box-shadow: 
+        0 2px 0 #881100,
+        0 5px 10px rgba(0, 0, 0, 0.5),
+        inset 0 2px 3px rgba(255, 255, 255, 0.2);
+    }
+
+    .ptt-icon {
+      width: 24px;
+      height: 24px;
+      border: 3px solid white;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .ptt-icon::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    /* Botones laterales */
+    .side-button {
+      position: absolute;
+      width: 8px;
+      height: 30px;
+      background: linear-gradient(90deg, #3a3a3a, #2a2a2a);
+      border-radius: 0 4px 4px 0;
+      right: -8px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+    }
+
+    .side-button:hover {
+      background: linear-gradient(90deg, #4a4a4a, #3a3a3a);
+    }
+
+    .side-button.top {
+      top: 120px;
+    }
+
+    .side-button.bottom {
+      top: 160px;
+    }
+
+    /* Tornillos decorativos */
+    .screw {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: linear-gradient(145deg, #4a4a4a, #2a2a2a);
+      border-radius: 50%;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    .screw::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+      width: 6px;
+      height: 1px;
+      background: #1a1a1a;
+    }
+
+    .screw::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      width: 6px;
+      height: 1px;
+      background: #1a1a1a;
+    }
+
+    .screw.top-left { top: 10px; left: 10px; }
+    .screw.top-right { top: 10px; right: 10px; }
+    .screw.bottom-left { bottom: 10px; left: 10px; }
+    .screw.bottom-right { bottom: 10px; right: 10px; }
+
+    /* Textura del grip */
+    .grip {
+      position: absolute;
+      bottom: 50px;
+      left: 15px;
+      right: 15px;
+      height: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      opacity: 0.3;
+    }
+
+    .grip-line {
+      height: 2px;
+      background: #000;
+      border-radius: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="walkie-talkie">
+    <!-- Antena -->
+    <div class="antenna"></div>
+    
+    <!-- Tornillos -->
+    <div class="screw top-left"></div>
+    <div class="screw top-right"></div>
+    <div class="screw bottom-left"></div>
+    <div class="screw bottom-right"></div>
+    
+    <!-- Botones laterales -->
+    <div class="side-button top"></div>
+    <div class="side-button bottom"></div>
+    
+    <!-- Altavoz -->
+    <div class="speaker">
+      <div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div>
+      <div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div>
+      <div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div>
+      <div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div>
+      <div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div>
+      <div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div><div class="speaker-hole"></div>
+    </div>
+    
+    <!-- Pantalla LCD -->
+    <div class="screen">
+      <div class="screen-top">
+        <div class="signal-bars">
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+        </div>
+        <div class="battery"></div>
+      </div>
+      <div class="channel-display">
+        <div class="channel-label">Canal</div>
+        <div class="channel-number">16</div>
+      </div>
+    </div>
+    
+    <!-- Controles -->
+    <div class="controls">
+      <div class="knob-container">
+        <div class="knob"></div>
+        <span class="knob-label">Vol</span>
+      </div>
+      <div class="knob-container">
+        <div class="knob"></div>
+        <span class="knob-label">Ch</span>
+      </div>
+    </div>
+    
+    <!-- LED -->
+    <div class="led-container">
+      <div class="led"></div>
+    </div>
+    
+    <!-- Boton PTT -->
+    <button class="ptt-button">
+      <div class="ptt-icon"></div>
+      Push to Talk
+    </button>
+  </div>
+</body>
+</html>
